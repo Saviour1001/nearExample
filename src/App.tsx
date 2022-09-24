@@ -10,8 +10,7 @@ import RPC from "./tezosRPC";
 import "./App.css";
 import NearRPC from "./nearRPC";
 
-const clientId =
-  "BFgsQCpMzp4qKQx6_sacp1OC50leBtVDG3mXNUAtcF7Hcn2pWxJjCtw-G7ornKb_euOwJ8clWuciFoH2oiiB0rg"; // get from https://dashboard.web3auth.io
+const clientId = ""; // get from https://dashboard.web3auth.io
 
 function App() {
   const [web3auth, setWeb3auth] = useState<Web3AuthCore | null>(null);
@@ -25,13 +24,7 @@ function App() {
         const web3auth = new Web3AuthCore({
           clientId,
           chainConfig: {
-            chainNamespace: CHAIN_NAMESPACES.SOLANA,
-            chainId: "0x1",
-            rpcTarget: "https://rpc.ankr.com/solana",
-            displayName: "Solana Mainnet",
-            blockExplorer: "https://explorer.solana.com",
-            ticker: "SOL",
-            tickerName: "Solana Token",
+            chainNamespace: CHAIN_NAMESPACES.OTHER,
           },
         });
 
