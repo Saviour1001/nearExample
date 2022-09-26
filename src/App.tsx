@@ -10,7 +10,8 @@ import RPC from "./tezosRPC";
 import "./App.css";
 import NearRPC from "./nearRPC";
 
-const clientId = ""; // get from https://dashboard.web3auth.io
+const clientId =
+  "BFgsQCpMzp4qKQx6_sacp1OC50leBtVDG3mXNUAtcF7Hcn2pWxJjCtw-G7ornKb_euOwJ8clWuciFoH2oiiB0rg"; // get from https://dashboard.web3auth.io
 
 function App() {
   const [web3auth, setWeb3auth] = useState<Web3AuthCore | null>(null);
@@ -91,6 +92,26 @@ function App() {
     console.log(nearKey);
   };
 
+  const onGetNearAccount = async () => {
+    if (!provider) {
+      console.log("provider not initialized yet");
+      return;
+    }
+    const rpc = new NearRPC(provider as SafeEventEmitterProvider);
+    const nearAccount = await rpc.getAccounts();
+    console.log(nearAccount);
+  };
+
+  const onGetNearConnection = async () => {
+    if (!provider) {
+      console.log("provider not initialized yet");
+      return;
+    }
+    const rpc = new NearRPC(provider as SafeEventEmitterProvider);
+    const nearConnection = await rpc.makeConnection();
+    console.log(nearConnection);
+  };
+
   const onGetTezosKeyPair = async () => {
     if (!provider) {
       console.log("provider not initialized yet");
@@ -150,6 +171,12 @@ function App() {
       </button>
       <button onClick={onGetNearKeyPair} className="card">
         Get Near Key Pair
+      </button>
+      <button onClick={onGetNearAccount} className="card">
+        Get Near account
+      </button>
+      <button onClick={onGetNearConnection} className="card">
+        Get Near Connection
       </button>
 
       <button onClick={getAccounts} className="card">

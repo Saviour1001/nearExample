@@ -1,6 +1,6 @@
 import { KeyStore } from "near-api-js/lib/key_stores";
 import { SafeEventEmitterProvider } from "@web3auth/base";
-import { connect, KeyPair, keyStores } from "near-api-js";
+import { connect, KeyPair, keyStores, WalletConnection } from "near-api-js";
 import { hex2buf } from "@taquito/utils";
 import { base_encode } from "near-api-js/lib/utils/serialize";
 export default class NearRPC {
@@ -27,6 +27,17 @@ export default class NearRPC {
       explorerUrl: "https://explorer.testnet.near.org",
     };
     const nearConnection = await connect(connectionConfig);
+    const walletConnection = new WalletConnection(
+      nearConnection,
+      "example-app"
+    );
+    console.log("walletConnection", walletConnection);
+    const walletAccountObj = walletConnection.account();
+    console.log("walletAccountObj", walletAccountObj);
+    const account = await nearConnection.account("example-account.testnet");
+    console.log("account", account);
+    const accountBalance = await account.getAccountBalance();
+    console.log("accountBalance", accountBalance);
   };
   getNearKeyPair = async (): Promise<any> => {
     try {
@@ -44,7 +55,7 @@ export default class NearRPC {
   getAccounts = async () => {
     try {
       const keyPair = await this.getNearKeyPair();
-      return keyPair?.getPublicKey().toString();
+      return keyPair?.getPublicKey().toString().split(":")[1];
     } catch (error) {
       console.error("Error", error);
     }
