@@ -17,6 +17,7 @@
     "@web3auth/base": "^2.0.0",
     "@web3auth/openlogin-adapter": "^2.0.2",
     "@web3auth/web3auth": "^2.0.2",
+    "algosdk": "^1.21.0",
     "near-api-js": "^1.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",

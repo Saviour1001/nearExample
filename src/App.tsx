@@ -9,6 +9,7 @@ import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import RPC from "./tezosRPC";
 import "./App.css";
 import NearRPC from "./nearRPC";
+import AlgorandRPC from "./algorandRPC";
 
 const clientId =
   "BFgsQCpMzp4qKQx6_sacp1OC50leBtVDG3mXNUAtcF7Hcn2pWxJjCtw-G7ornKb_euOwJ8clWuciFoH2oiiB0rg"; // get from https://dashboard.web3auth.io
@@ -80,6 +81,16 @@ function App() {
     }
     await web3auth.logout();
     setProvider(null);
+  };
+
+  const onGetAlgorandKeyPair = async () => {
+    if (!provider) {
+      console.log("provider not initialized yet");
+      return;
+    }
+    const rpc = new AlgorandRPC(provider as SafeEventEmitterProvider);
+    const keyPair = await rpc.getAlgorandKeyPair();
+    console.log(keyPair);
   };
 
   const onGetNearKeyPair = async () => {
@@ -166,6 +177,10 @@ function App() {
       <button onClick={getUserInfo} className="card">
         Get User Info
       </button>
+      <button onClick={onGetAlgorandKeyPair} className="card">
+        Get Algorand Key Pair
+      </button>
+
       <button onClick={onGetTezosKeyPair} className="card">
         Get Tezos Key Pair
       </button>

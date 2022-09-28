@@ -3,6 +3,7 @@ import { SafeEventEmitterProvider } from "@web3auth/base";
 import { connect, KeyPair, keyStores, WalletConnection } from "near-api-js";
 import { hex2buf } from "@taquito/utils";
 import { base_encode } from "near-api-js/lib/utils/serialize";
+import { parseNearAmount } from "near-api-js/lib/utils/format";
 export default class NearRPC {
   private provider: SafeEventEmitterProvider;
 
@@ -69,6 +70,16 @@ export default class NearRPC {
       // return balance;
     } catch (error) {
       return error;
+    }
+  };
+
+  signTransaction = async () => {
+    try {
+      // reference https://docs.near.org/integrator/create-transactions#sign-transaction
+      const keyPair = await this.getNearKeyPair();
+      const amount = parseNearAmount("0.1");
+    } catch (error) {
+      console.error(error);
     }
   };
 }
